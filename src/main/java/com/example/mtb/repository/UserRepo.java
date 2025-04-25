@@ -1,7 +1,9 @@
 package com.example.mtb.repository;
 
-import org.apache.catalina.User;
+import com.example.mtb.entity.UserDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepo extends JpaRepository<User, String> {
+@Repository
+public interface UserRepo extends JpaRepository<UserDetails, String> {
 }

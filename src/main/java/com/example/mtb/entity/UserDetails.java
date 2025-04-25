@@ -1,10 +1,7 @@
 package com.example.mtb.entity;
 
 import com.example.mtb.enums.UserRole;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +17,7 @@ import java.time.LocalDate;
 @Builder
 public class UserDetails {
     @Id
-    private String userId;
+    private Long userId;
     private String userName;
     private String email;
     private String password;
