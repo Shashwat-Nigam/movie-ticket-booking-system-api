@@ -2,6 +2,7 @@ package com.example.mtb.service;
 
 import com.example.mtb.dto.registeration.UserRegistrationDTO;
 import com.example.mtb.dto.response.UserResponseDTO;
+import com.example.mtb.repository.UserRepo;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ public interface UserService {
 
     List<UserResponseDTO> getAllUsers();
 
-    UserResponseDTO getUserById(Long id);
+    UserResponseDTO getUserById(String id);
 
-    UserResponseDTO updateUser(Long id, UserRegistrationDTO userDto);
+    UserResponseDTO updateUser(String id, UserRegistrationDTO userDto);
 
-    void deleteUser(Long id);
+    void deleteUser(String id);
 }

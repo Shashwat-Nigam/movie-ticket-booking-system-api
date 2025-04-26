@@ -10,13 +10,15 @@ public class UserResponseMapper {
             return null;
         }
 
-        UserResponseDTO dto = new UserResponseDTO
-                (
-                        user.getUserId(),
-                        user.getUserName(),
-                        user.getEmail(),
-                        user.getUserRole()
-                );
-        return dto;
+        return new UserResponseDTO(
+                user.getUserId(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getUserRole(),
+                user.getPhoneNumber(),
+                user.getDateOfBirth(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
+        );
     }
 }

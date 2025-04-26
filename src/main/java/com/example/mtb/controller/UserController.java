@@ -1,6 +1,5 @@
 package com.example.mtb.controller;
 
-
 import com.example.mtb.dto.registeration.UserRegistrationDTO;
 import com.example.mtb.dto.response.UserResponseDTO;
 import com.example.mtb.service.UserService;
@@ -33,7 +32,7 @@ public class UserController {
 
     // Get user by ID
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable String id) {
         UserResponseDTO user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
@@ -41,7 +40,7 @@ public class UserController {
     // Update user by ID
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> updateUser(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody UserRegistrationDTO userDto) {
         UserResponseDTO updatedUser = userService.updateUser(id, userDto);
         return ResponseEntity.ok(updatedUser);
@@ -49,7 +48,7 @@ public class UserController {
 
     // Delete user by ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully.");
     }

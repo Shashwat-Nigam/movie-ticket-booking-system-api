@@ -3,12 +3,15 @@ package com.example.mtb.dto.registeration;
 
 import com.example.mtb.enums.UserRole;
 
+import java.time.LocalDate;
+
 public record UserRegistrationDTO(
-        Long id,
-        String userName,
+        String userId,
+        String username,
         String email,
-        String phoneNumber,
         String password,
-        UserRole role
+        UserRole userRole,
+        String phoneNumber,
+        LocalDate dateOfBirth
 ){
 }

@@ -6,22 +6,36 @@ import com.example.mtb.entity.UserDetails;
 
 public class UserMapper {
 
+    // Convert UserRegistrationDTO (record) to UserDetails entity
     public static UserDetails toEntity(UserRegistrationDTO dto) {
-        return UserDetails.builder()
-                .userName(dto.userName())
-                .email(dto.email())
-                .password(dto.password())
-                .userRole(dto.role())
-                .build();
+        if (dto == null) return null;
 
+        UserDetails user = new UserDetails();
+
+        user.setUserId(dto.userId());
+        user.setUserName(dto.username());
+        user.setEmail(dto.email());
+        user.setPassword(dto.password());
+        user.setUserRole(dto.userRole());
+        user.setPhoneNumber(dto.phoneNumber());
+        user.setDateOfBirth(dto.dateOfBirth());
+
+        return user;
     }
 
+    // Convert UserDetails entity to UserResponseDTO (record)
     public static UserResponseDTO toResponseDTO(UserDetails user) {
-        return UserResponseDTO.builder()
-                .id(user.getUserId())
-                .username(user.getUserName())
-                .email(user.getEmail())
-                .role(user.getUserRole())
-                .build();
+        if (user == null) return null;
+
+        return new UserResponseDTO(
+                user.getUserId(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getUserRole(),
+                user.getPhoneNumber(),
+                user.getDateOfBirth(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
+        );
     }
 }

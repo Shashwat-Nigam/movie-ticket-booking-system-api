@@ -3,12 +3,18 @@ package com.example.mtb.dto.response;
 import com.example.mtb.enums.UserRole;
 import lombok.Builder;
 
+import java.time.LocalDate;
+
 @Builder
 
 public record UserResponseDTO(
-        Long id,
+        String userId,
         String username,
         String email,
-        UserRole role
+        UserRole userRole,
+        String phoneNumber,
+        LocalDate dateOfBirth,
+        Long createdAt,
+        Long updatedAt
 ) {}
 
