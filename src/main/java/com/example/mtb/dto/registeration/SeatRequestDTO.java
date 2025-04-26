@@ -13,5 +13,6 @@ public class SeatRequestDTO {
     private Boolean isAvailable;
     private String screenId;
     private Long createdAt;
+    private Integer rowNumber;
 
 }

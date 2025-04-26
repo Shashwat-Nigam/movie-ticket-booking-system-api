@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SeatResponseDTO {
-
-
+    private String seatName;
     private String seatId;
     private String seatNumber;
     private SeatType seatType;

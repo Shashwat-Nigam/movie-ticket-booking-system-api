@@ -15,6 +15,7 @@ public class Seat {
 
     @Id
     private String seatId;
+    private String seatName;
 
     private String seatNumber;
     private Long createdAt;
