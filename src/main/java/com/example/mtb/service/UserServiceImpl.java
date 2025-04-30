@@ -9,6 +9,7 @@ import com.example.mtb.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,61 +17,65 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepo userRepository;
+    private final UserRepo userRepo;
 
     @Override
-    public UserResponseDTO registerUser(UserRegistrationDTO userDto) {
-        UserDetails user = UserMapper.toEntity(userDto);
+    public UserResponseDTO registerUser(UserRegistrationDTO userRegistrationDTO) {
+        UserDetails user = UserMapper.toEntity(userRegistrationDTO);
 
         if (user.getUserRole() == null) {
             user.setUserRole(UserRole.USER);
         }
 
-        long now = System.currentTimeMillis();
+        Long now = Instant.now().toEpochMilli();
         user.setCreatedAt(now);
         user.setUpdatedAt(now);
 
-        UserDetails savedUser = userRepository.save(user);
+        UserDetails savedUser = userRepo.save(user);
         return UserMapper.toResponseDTO(savedUser);
     }
 
     @Override
     public List<UserResponseDTO> getAllUsers() {
-        return userRepository.findAll()
+        return userRepo.findAll()
                 .stream()
+                .filter(user -> !user.isDeleted()) // Exclude soft-deleted users
                 .map(UserMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserResponseDTO getUserById(String id) {
-        UserDetails user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    public UserResponseDTO getUserById(String userId) {
+        UserDetails user = userRepo.findById(userId)
+                .filter(u -> !u.isDeleted())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " ));
         return UserMapper.toResponseDTO(user);
     }
 
     @Override
-    public UserResponseDTO updateUser(String id, UserRegistrationDTO userDto) {
-        UserDetails existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    public UserResponseDTO updateUser(String userId, UserRegistrationDTO userRegistrationDTO) {
+        UserDetails existingUser = userRepo.findById(userId)
+                .filter(u -> !u.isDeleted())
+                .orElseThrow(() -> new RuntimeException("User not found with id: "));
 
-        existingUser.setUserName(userDto.username());
-        existingUser.setEmail(userDto.email());
-        existingUser.setPassword(userDto.password());
-        existingUser.setUserRole(userDto.userRole() != null ? userDto.userRole() : existingUser.getUserRole());
-        existingUser.setPhoneNumber(userDto.phoneNumber());
-        existingUser.setDateOfBirth(userDto.dateOfBirth());
-        existingUser.setUpdatedAt(System.currentTimeMillis());
+        existingUser.setUserName(userRegistrationDTO.username());
+        existingUser.setEmail(userRegistrationDTO.email());
+        existingUser.setPassword(userRegistrationDTO.password());
+        existingUser.setUserRole(userRegistrationDTO.userRole() != null ? userRegistrationDTO.userRole() : existingUser.getUserRole());
+        existingUser.setPhoneNumber(userRegistrationDTO.phoneNumber());
+        existingUser.setDateOfBirth(userRegistrationDTO.dateOfBirth());
+        existingUser.setUpdatedAt(Instant.now().toEpochMilli());
 
-        UserDetails updatedUser = userRepository.save(existingUser);
+        UserDetails updatedUser = userRepo.save(existingUser);
         return UserMapper.toResponseDTO(updatedUser);
     }
 
     @Override
-    public void deleteUser(String id) {
-        if (!userRepository.existsById(id)) {
-            throw new RuntimeException("User not found with id: " + id);
-        }
-        userRepository.deleteById(id);
+    public void deleteUser(String userId) {
+        UserDetails user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " ));
+
+        user.softDelete(); // Perform soft delete
+        userRepo.save(user);
     }
 }

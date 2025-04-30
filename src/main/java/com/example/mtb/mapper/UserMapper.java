@@ -12,7 +12,6 @@ public class UserMapper {
 
         UserDetails user = new UserDetails();
 
-        user.setUserId(dto.userId());
         user.setUserName(dto.username());
         user.setEmail(dto.email());
         user.setPassword(dto.password());
@@ -22,6 +21,7 @@ public class UserMapper {
 
         return user;
     }
+
 
     // Convert UserDetails entity to UserResponseDTO (record)
     public static UserResponseDTO toResponseDTO(UserDetails user) {

@@ -18,8 +18,8 @@ public class UserController {
 
     // Register new user
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRegistrationDTO userDto) {
-        UserResponseDTO savedUser = userService.registerUser(userDto);
+    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+        UserResponseDTO savedUser = userService.registerUser(userRegistrationDTO);
         return ResponseEntity.ok(savedUser);
     }
 
@@ -31,25 +31,25 @@ public class UserController {
     }
 
     // Get user by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable String id) {
-        UserResponseDTO user = userService.getUserById(id);
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable String userId) {
+        UserResponseDTO user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
 
     // Update user by ID
-    @PutMapping("/{id}")
+    @PutMapping("/{userId}")
     public ResponseEntity<UserResponseDTO> updateUser(
-            @PathVariable String id,
-            @RequestBody UserRegistrationDTO userDto) {
-        UserResponseDTO updatedUser = userService.updateUser(id, userDto);
+            @PathVariable String userId,
+            @RequestBody UserRegistrationDTO userRegistrationDTO) {
+        UserResponseDTO updatedUser = userService.updateUser(userId, userRegistrationDTO);
         return ResponseEntity.ok(updatedUser);
     }
 
     // Delete user by ID
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable String id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable String userId) {
+        userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted successfully.");
     }
 }

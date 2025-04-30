@@ -12,9 +12,9 @@ public interface UserService {
 
     List<UserResponseDTO> getAllUsers();
 
-    UserResponseDTO getUserById(String id);
+    UserResponseDTO getUserById(String userId);
 
-    UserResponseDTO updateUser(String id, UserRegistrationDTO userDto);
+    UserResponseDTO updateUser(String userId, UserRegistrationDTO userDto);
 
-    void deleteUser(String id);
+    void deleteUser(String userId);
 }

@@ -3,6 +3,7 @@ package com.example.mtb.dto.response;
 import com.example.mtb.enums.UserRole;
 import lombok.Builder;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Builder
@@ -16,5 +17,7 @@ public record UserResponseDTO(
         LocalDate dateOfBirth,
         Long createdAt,
         Long updatedAt
-) {}
+) {
+
+}
 

@@ -14,6 +14,7 @@ import java.time.Instant;
 public class Seat {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String seatId;
     private String seatName;
 
