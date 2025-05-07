@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -32,8 +33,8 @@ public class Theater {
     @JoinColumn(name = "owner_id", nullable = false)
     private TheaterOwner theaterOwner;
 
-    @OneToMany(mappedBy = "theater")
-    private List<Screen> screen;
+    @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
+    private List<Screen> screens = new ArrayList<>();
 
 }
 
